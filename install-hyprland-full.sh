@@ -30,11 +30,43 @@ echo "🖼 Setting up wallpaper..."
 mkdir -p ~/Pictures
 curl -L https://wallpapercave.com/wp/wp5128413.jpg -o ~/Pictures/wallpaper.jpg
 
+echo "🧑‍💻 Detecting GPU and installing appropriate drivers..."
+
+# Detect GPU and install drivers
+if lspci | grep -i 'VGA' | grep -i 'Intel'; then
+  echo "Intel GPU detected. Installing Intel drivers..."
+  sudo pacman -S --noconfirm xf86-video-intel
+elif lspci | grep -i 'VGA' | grep -i 'AMD'; then
+  echo "AMD GPU detected. Installing AMD drivers..."
+  sudo pacman -S --noconfirm xf86-video-amdgpu
+elif lspci | grep -i 'VGA' | grep -i 'NVIDIA'; then
+  echo "NVIDIA GPU detected. Installing NVIDIA drivers..."
+  sudo pacman -S --noconfirm nvidia nvidia-utils
+else
+  echo "No supported GPU detected. Please manually install appropriate drivers."
+fi
+
+# Check for VMware or similar virtual environment
+if systemctl list-units --type=service | grep -q "vmtoolsd"; then
+  echo "✅ VMware detected. Installing open-vm-tools for better VM integration..."
+  sudo pacman -S --noconfirm open-vm-tools
+  sudo systemctl enable --now vmtoolsd
+elif systemd-detect-virt | grep -q 'vmware'; then
+  echo "✅ VMware detected. Installing open-vm-tools for better VM integration..."
+  sudo pacman -S --noconfirm open-vm-tools
+  sudo systemctl enable --now vmtoolsd
+else
+  echo "❌ No VMware tools detected. If using a VM, you may want to install open-vm-tools manually."
+fi
+
+# Create minimal Hyprland config with a dummy file if missing
 echo "🛠 Setting up Hyprland config..."
 mkdir -p ~/.config/hypr
 
-cat > ~/.config/hypr/hyprland.conf <<EOF
-# Hyprland minimal config
+# Create dummy hyprland.conf if missing
+if [ ! -f ~/.config/hypr/hyprland.conf ]; then
+  cat > ~/.config/hypr/hyprland.conf <<EOF
+# Hyprland minimal config (dummy file)
 
 \$mod = SUPER
 
@@ -65,5 +97,9 @@ animations {
   enabled = true
 }
 EOF
+  echo "✅ Dummy Hyprland config created."
+else
+  echo "✅ Hyprland config already exists."
+fi
 
 echo "✅ Done! Reboot and run 'Hyprland' from TTY to start your session."
