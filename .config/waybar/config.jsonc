@@ -1,0 +1,54 @@
+{
+  "layer": "top",
+  "position": "top",
+
+  "modules-left": ["workspaces"],
+  "modules-center": [],
+  "modules-right": ["mako", "clock", "cpu", "memory", "network", "battery", "pulseaudio"],
+
+  "workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": ""
+    }
+  },
+
+  "mako": {
+    "format": "{count} ",   // shows number of unread notifications + bell icon
+    "format-icons": {
+      "default": ""
+    }
+  },
+
+  "clock": {
+    "format": " {:%H:%M}"
+  },
+
+  "cpu": {
+    "format": " {usage}%"
+  },
+
+  "memory": {
+    "format": " {used}MB"
+  },
+
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " {ifname}"
+  },
+
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-icons": {
+      "default": ["", "", ""]
+    }
+  }
+}

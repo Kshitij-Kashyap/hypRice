@@ -1,0 +1,84 @@
+* {
+  font-family: "Monocraft Nerd Font";
+  font-size: 14px;
+}
+
+window#waybar {
+  background: #1e1e2e;
+  color: #ffffff;
+}
+
+#workspaces button {
+  background: #ff5555;
+  color: #ffffff;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#cpu {
+  background: #50fa7b;
+  color: #000000;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#memory {
+  background: #bd93f9;
+  color: #000000;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#network {
+  background: #f1fa8c;
+  color: #000000;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#battery {
+  background: #ffb86c;
+  color: #000000;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#pulseaudio {
+  background: #8be9fd;
+  color: #000000;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#clock {
+  background: #6272a4;
+  color: #ffffff;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#mako {
+  background: #ffffff;
+  color: #00bfa5;        /* teal for normal */
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 2px solid #00bfa5;
+}
+
+#mako.critical {
+  color: #d32f2f;        /* red for critical */
+  border-color: #d32f2f;
+}
+
+#mako.low {
+  color: #00796b;        /* dark teal for low urgency */
+  border-color: #00796b;
+}

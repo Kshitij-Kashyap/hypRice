@@ -8,10 +8,11 @@ sudo pacman -Syu --noconfirm
 
 echo "📦 Installing core packages..."
 sudo pacman -S --noconfirm \
-  hyprland kitty swww wl-clipboard waybar \
+  hyprland kitty swww wl-clipboard waybar mako hyprlock \
   networkmanager bluez bluez-utils \
   pipewire pipewire-pulse wireplumber \
   xdg-desktop-portal-hyprland xdg-utils \
+  brightnessctl pavucontrol thunar \
   git curl wget nano unzip
 
 echo "🔌 Enabling essential services..."
@@ -46,37 +47,33 @@ else
   echo "No supported GPU detected. Please manually install appropriate drivers."
 fi
 
-# Check for VMware or similar virtual environment
-if systemctl list-units --type=service | grep -q "vmtoolsd"; then
-  echo "✅ VMware detected. Installing open-vm-tools for better VM integration..."
-  sudo pacman -S --noconfirm open-vm-tools
-  sudo systemctl enable --now vmtoolsd
-elif systemd-detect-virt | grep -q 'vmware'; then
-  echo "✅ VMware detected. Installing open-vm-tools for better VM integration..."
-  sudo pacman -S --noconfirm open-vm-tools
-  sudo systemctl enable --now vmtoolsd
-else
-  echo "❌ No VMware tools detected. If using a VM, you may want to install open-vm-tools manually."
-fi
-
 # Create minimal Hyprland config with a dummy file if missing
 echo "🛠 Setting up Hyprland config..."
 mkdir -p ~/.config/hypr
 
-# Create dummy hyprland.conf if missing
 if [ ! -f ~/.config/hypr/hyprland.conf ]; then
   cat > ~/.config/hypr/hyprland.conf <<EOF
-# Hyprland minimal config (dummy file)
+# Hyprland minimal config (Arch Linux alternative setup)
 
 \$mod = SUPER
 
 # Keybinds
 bind = \$mod, Return, exec, kitty
+bind = \$mod, D, exec, rofi -show drun
+bind = ,XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%
+bind = ,XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%
+bind = ,XF86AudioMute,exec,pactl set-sink-mute @DEFAULT_SINK@ toggle
+bind = ,XF86MonBrightnessUp,exec,brightnessctl set +5%
+bind = ,XF86MonBrightnessDown,exec,brightnessctl set 5%-
 
 # Autostart
 exec-once = kitty
 exec-once = swww init && swww img ~/Pictures/wallpaper.jpg
 exec-once = waybar
+exec-once = mako
+exec-once = nm-applet
+exec-once = blueman-applet
+exec-once = hyprlock
 
 # Monitor and input
 monitor=,preferred,auto,1

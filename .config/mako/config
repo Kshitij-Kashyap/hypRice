@@ -1,0 +1,29 @@
+# General settings
+font=Monocraft 10
+width=300
+height=100
+margin=10,50
+padding=10
+border-size=2
+border-color=#00bfa5
+background-color=#ffffff
+text-color=#00bfa5
+corner-radius=8
+icons=true
+max-icon-size=64
+default-timeout=10000   # 10s default timeout
+ignore-timeout=0        # critical notifications stay until dismissed
+
+# Urgency-based overrides
+[urgency=low]
+text-color=#00796b
+timeout=5000
+
+[urgency=normal]
+text-color=#00bfa5
+timeout=10000
+
+[urgency=critical]
+text-color=#d32f2f
+border-color=#d32f2f
+timeout=0
